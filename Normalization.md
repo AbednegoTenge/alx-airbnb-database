@@ -88,7 +88,7 @@ All tables are in **Third Normal Form (3NF)**.
 
 ### ✅ Final Assessment
 
-Your schema:
+The schema:
 - Contains **no repeating groups** ✅  
 - Has **atomic fields** ✅  
 - Uses **unique identifiers** (UUIDs) ✅  
@@ -102,7 +102,7 @@ Your schema:
 
 ### 🧾 Recommendation
 
-Your current model is **efficient and scalable**.  
+The current model is **efficient and scalable**.  
 If the system grows, consider:
 - Adding an **Address** table if users can have multiple locations.
 - Adding a **Payment Transaction Log** table for detailed audit tracking.
