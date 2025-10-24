@@ -15,15 +15,9 @@ Stores information about all users in the system (guests, hosts, and admins).
 - `password_hash` (VARCHAR(255), NOT NULL): Encrypted password
 - `first_name` (VARCHAR(50)): User's first name
 - `last_name` (VARCHAR(50)): User's last name
-- `phone` (VARCHAR(20)): Contact phone number
-- `date_of_birth` (DATE): User's date of birth
-- `profile_picture` (VARCHAR(255)): URL to profile image
-- `is_active` (BOOLEAN, DEFAULT TRUE): Account active status
-- `is_verified` (BOOLEAN, DEFAULT FALSE): Email verification status
+- `phone_number` (VARCHAR(20)): Contact phone number
 - `role` (ENUM: 'guest', 'host', 'admin', NOT NULL): User's role in the system
 - `created_at` (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP): Account creation date
-- `updated_at` (TIMESTAMP, AUTO UPDATE): Last update timestamp
-- `last_login` (TIMESTAMP, NULL): Last login timestamp
 
 **Indexes:**
 - Primary key on `id`
