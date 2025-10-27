@@ -1,5 +1,5 @@
 
-## 🧩 Normalization.md
+## 🧩 normalization.md
 
 ### 🏗️ Objective
 To ensure the Airbnb Clone Database schema adheres to the **Third Normal Form (3NF)** — minimizing redundancy and ensuring data integrity.
