@@ -11,7 +11,8 @@ ON User.user_id = Booking.user_id;
 SELECT Property.property_id, Property.name, Review.rating, Review.comment
 FROM Property
 LEFT JOIN Review
-ON Property.property_id = Review.property_id;
+ON Property.property_id = Review.property_id
+ORDER BY Property.property_id;
 
 ##FULL OUTER JOIN
 
