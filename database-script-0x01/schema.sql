@@ -1,31 +1,27 @@
-
 CREATE TABLE User (
-  user_id CHAR(36) PRIMARY KEY DEFAULT(UUID()),
+  user_id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
   first_name VARCHAR(60) NOT NULL,
-  last_name VARCHAR(6O) NOT NULL,
+  last_name VARCHAR(20) NOT NULL,
   email VARCHAR(50) NOT NULL UNIQUE,
-  password_hash VARCHAR(70) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
   phone_number VARCHAR(20) NOT NULL,
-  role ENUM("guest", "host", "admin") NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
+  role ENUM('guest', 'host', 'admin') NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   INDEX idx_email (email)
-)
-
+);
 
 CREATE TABLE Property (
-  property_id CHAR(36) PRIMARY KEY DEFAULT(UUID()),
+  property_id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
   host_id CHAR(36) NOT NULL,
   name VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
   location VARCHAR(255) NOT NULL,
   pricepernight DECIMAL(15, 2) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT  CURRENT_TIMESTAMP ON UPDATE
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (host_id) REFERENCES User(user_id) ON DELETE CASCADE,
-  INDEX idx_host_id (host_id),
-)
-
+  INDEX idx_host_id (host_id)
+);
   
 CREATE TABLE Booking (
   booking_id CHAR(36) PRIMARY KEY DEFAULT(UUID()),
@@ -33,27 +29,23 @@ CREATE TABLE Booking (
   user_id CHAR(36) NOT NULL,
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
-  total_price DECIMAL(15, 2) NOT NULL
-  status ENUM("pending", "confirmed", "cancelled") NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  FOREIGN KEY (property_id) REFERENCES Property(property_id) ON DELETE CASCADE
-  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
+  total_price DECIMAL(15, 2) NOT NULL,
+  status ENUM('pending', 'confirmed', 'cancelled') NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (property_id) REFERENCES Property(property_id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
   INDEX idx_property_id (property_id)
-)
-
+);
   
 CREATE TABLE Payment (
   payment_id CHAR(36) PRIMARY KEY DEFAULT(UUID()),
   booking_id CHAR(36) NOT NULL,
   amount DECIMAL(15, 2) NOT NULL,
   payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  payment_method ENUM("credit_card", "PayPal", "stripe"),
-
-  FOREIGN KEY (booking_id) REFERENCES Booking(booking_id) ON DELETE CASCADE
-
+  payment_method ENUM('credit_card', 'PayPal', 'stripe'),
+  FOREIGN KEY (booking_id) REFERENCES Booking(booking_id) ON DELETE CASCADE,
   INDEX idx_booking_id (booking_id)
-)
-
+); 
 
 CREATE TABLE Review (
   review_id CHAR(36) PRIMARY KEY DEFAULT(UUID()),
@@ -63,9 +55,8 @@ CREATE TABLE Review (
   comment TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (property_id) REFERENCES Property(property_id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-)
-
+  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
+);
 
 CREATE TABLE Message (
   message_id CHAR(36) PRIMARY KEY DEFAULT(UUID()),
@@ -73,6 +64,6 @@ CREATE TABLE Message (
   recipient_id CHAR(36) NOT NULL,
   message_body TEXT NOT NULL,
   sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
-  FOREIGN KEY (recipient_id) REFERENCES users(id) ON DELETE CASCADE
-)
+  FOREIGN KEY (sender_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (recipient_id) REFERENCES User(user_id) ON DELETE CASCADE
+);
