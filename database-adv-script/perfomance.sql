@@ -23,7 +23,7 @@ JOIN Booking
     ON Property.property_id = Booking.property_id
 JOIN Payment 
     ON Booking.booking_id = Payment.booking_id
-WHERE User.user_id IS NOT NULL
+WHERE User.user_id IS NOT NULL AND Payment.amount > 0
 ORDER BY User.user_id;
 
 
